@@ -10,7 +10,7 @@ const AdminView = () => {
     // Llamada a la API para obtener los códigos
     const fetchCodigos = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/codigo'); // Cambia a la ruta correcta
+        const response = await fetch('https://back-login-1hkh3o14v-esteban-s-projects-99399462.vercel.app/codigos');
         const data = await response.json();
 
         setCodigos(data); // Asegúrate de que 'data' sea un array de objetos
