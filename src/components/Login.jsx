@@ -17,11 +17,14 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
       },
       body: JSON.stringify({ correo, contrasena: password })
     });
+
     const data = await response.json();
+
+    // Asegúrate de que la respuesta sea correcta
     if (data.success) {
       setIsAuthenticated(true);
       setIsAdmin(data.isAdmin);
-      navigate('/');
+      navigate('/user'); // Asegúrate de que esta ruta sea correcta
     } else {
       setMessage('Credenciales incorrectas. Intenta nuevamente.');
     }
@@ -32,8 +35,20 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
       <h2>Inicia sesión en tu cuenta</h2>
       <p>O regístrate si aún no tienes una cuenta</p>
       <form className="login-form" onSubmit={handleLogin}>
-        <input type="email" placeholder="Correo electrónico" value={correo} onChange={(e) => setCorreo(e.target.value)} required />
-        <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <div className="remember-container">
           <label>
             <input type="checkbox" /> Recuérdame

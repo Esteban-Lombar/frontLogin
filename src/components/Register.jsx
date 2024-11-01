@@ -15,24 +15,19 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:4000/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nombre, fechaDeNacimiento, cedula, correo, celular, ciudad, contrasena: password })
-      });
-      const data = await response.json();
-      if (data.success) {
-        setMessage('Registro exitoso. Puedes iniciar sesión.');
-        navigate('/login');
-      } else {
-        setMessage('Error en el registro. Intenta nuevamente.');
-      }
-    } catch (error) {
-      console.error('Error al enviar los datos:', error);
-      setMessage('Error en el servidor. Intenta nuevamente más tarde.');
+    const response = await fetch('http://localhost:4000/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ nombre, fechaDeNacimiento, cedula, correo, celular, ciudad, contrasena: password })
+    });
+    const data = await response.json();
+    if (data.success) {
+      setMessage('Registro exitoso. Puedes iniciar sesión.');
+      navigate('/login');
+    } else {
+      setMessage('Error en el registro. Intenta nuevamente.');
     }
   };
 
