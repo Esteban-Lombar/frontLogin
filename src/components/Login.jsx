@@ -22,9 +22,15 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
 
     // Asegúrate de que la respuesta sea correcta
     if (data.success) {
-      setIsAuthenticated(true);
-      setIsAdmin(data.isAdmin);
-      navigate('/user'); // Asegúrate de que esta ruta sea correcta
+      setIsAuthenticated(true); // Marca al usuario como autenticado
+      setIsAdmin(data.isAdmin); // Establece si el usuario es admin
+
+      // Redirige según el rol de usuario
+      if (data.isAdmin) {
+        navigate('/admin'); // Redirige a la vista de administrador
+      } else {
+        navigate('/user'); // Redirige a la vista de usuario
+      }
     } else {
       setMessage('Credenciales incorrectas. Intenta nuevamente.');
     }
