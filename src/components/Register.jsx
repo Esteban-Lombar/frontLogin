@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
+import '../styles/register.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para registrar al usuario
     alert(`Usuario ${username} registrado`);
-    // Resetear los campos después del registro
     setUsername('');
     setPassword('');
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Registro</h2>
-      <form onSubmit={handleSubmit}>
+      <p>O inicia sesión si ya tienes una cuenta</p>
+      <form className="register-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Usuario"
@@ -33,6 +35,9 @@ const Register = () => {
         />
         <button type="submit">Registrarse</button>
       </form>
+      <button className="btn-back" onClick={() => navigate('/')}>
+        Volver al Login
+      </button>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/login.css';
 
 const Login = ({ setIsAuthenticated, setIsAdmin }) => {
   const [username, setUsername] = useState('');
@@ -6,9 +7,6 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para verificar usuario y contraseña
-    // Por ejemplo, una llamada a una API.
-    // Simulación de autenticación:
     if (username === 'admin' && password === 'admin') {
       setIsAuthenticated(true);
       setIsAdmin(true);
@@ -21,12 +19,13 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
   };
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
+    <div className="login-container">
+      <h2>Inicia sesión en tu cuenta</h2>
+      <p>O regístrate si aún no tienes una cuenta</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Usuario"
+          placeholder="Correo electrónico"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -38,7 +37,13 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Ingresar</button>
+        <div className="remember-container">
+          <label>
+            <input type="checkbox" /> Recuérdame
+          </label>
+          <a href="/forgot-password">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button type="submit">Iniciar sesión</button>
       </form>
       <p>No tienes una cuenta? <a href="/register">Regístrate</a></p>
     </div>
