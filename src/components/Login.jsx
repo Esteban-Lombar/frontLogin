@@ -14,9 +14,9 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
     const response = await fetch('http://localhost:4000/auth/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ correo, contrasena: password })
+      body: JSON.stringify({ correo, contrasena: password }),
     });
 
     const data = await response.json();
@@ -49,14 +49,17 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:4000/api/upload', {
+      const response = await fetch('http://localhost:4000/upload', {
         method: 'POST',
         body: formData,
       });
 
       const data = await response.json();
-      if (data.success) {
-        setMessage(`Archivo subido con éxito: ${data.url}`);
+      if (data.fileUrl) {
+        setMessage(`Archivo subido con éxito: ${data.fileUrl}`);
+        
+        // Redirige a la página donde se muestra la imagen
+        navigate(`/view-image?url=${encodeURIComponent(data.fileUrl)}`);
       } else {
         setMessage('Error al subir el archivo.');
       }
@@ -93,7 +96,7 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
-      
+
       {/* Sección de subida de archivos */}
       <div className="file-upload-container">
         <h3>Subir archivo</h3>
