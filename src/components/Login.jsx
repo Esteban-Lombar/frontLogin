@@ -6,6 +6,7 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [file, setFile] = useState(null); // Estado para manejar el archivo
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,19 +21,48 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
 
     const data = await response.json();
 
-    // Asegúrate de que la respuesta sea correcta
     if (data.success) {
-      setIsAuthenticated(true); // Marca al usuario como autenticado
-      setIsAdmin(data.isAdmin); // Establece si el usuario es admin
+      setIsAuthenticated(true);
+      setIsAdmin(data.isAdmin);
 
-      // Redirige según el rol de usuario
       if (data.isAdmin) {
-        navigate('/admin'); // Redirige a la vista de administrador
+        navigate('/admin');
       } else {
-        navigate('/user'); // Redirige a la vista de usuario
+        navigate('/user');
       }
     } else {
       setMessage('Credenciales incorrectas. Intenta nuevamente.');
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleFileUpload = async () => {
+    if (!file) {
+      setMessage('Por favor selecciona un archivo.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('http://localhost:4000/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setMessage(`Archivo subido con éxito: ${data.url}`);
+      } else {
+        setMessage('Error al subir el archivo.');
+      }
+    } catch (error) {
+      console.error('Error al subir el archivo:', error);
+      setMessage('Hubo un problema al subir el archivo.');
     }
   };
 
@@ -63,6 +93,16 @@ const Login = ({ setIsAuthenticated, setIsAdmin }) => {
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
+      
+      {/* Sección de subida de archivos */}
+      <div className="file-upload-container">
+        <h3>Subir archivo</h3>
+        <input type="file" onChange={handleFileChange} />
+        <button type="button" onClick={handleFileUpload}>
+          Subir archivo
+        </button>
+      </div>
+
       {message && <p className="result-message">{message}</p>}
       <p>No tienes una cuenta? <a href="/register">Regístrate</a></p>
     </div>
