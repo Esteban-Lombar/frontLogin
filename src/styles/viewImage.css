@@ -1,0 +1,56 @@
+/* Estilos generales */
+.view-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .image-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    max-height: 80vh; /* Limitar la altura */
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .uploaded-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error-message {
+    font-size: 1rem;
+    color: #ff6b6b;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Si quieres añadir un fondo de imagen para mejorar la estética */
+  .view-image-container {
+    background: url('https://via.placeholder.com/1500x1000') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  /* Estilo para mejorar la accesibilidad */
+  .uploaded-image {
+    cursor: pointer;
+  }
+  

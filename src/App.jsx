@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import UserView from './components/UserView';
 import AdminView from './components/AdminView';
+import ViewImage from './components/ViewImage'; // Asegúrate de tener este componente
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +41,8 @@ function App() {
         <Route path="/user" element={isAuthenticated && !isAdmin ? <UserView /> : <Navigate to="/login" />} />
         {/* Ruta del administrador */}
         <Route path="/admin" element={isAuthenticated && isAdmin ? <AdminView /> : <Navigate to="/login" />} />
+        {/* Ruta para ver imagen */}
+        <Route path="/view-image" element={<ViewImage />} /> {/* Nueva ruta para visualizar la imagen */}
       </Routes>
     </Router>
   );
